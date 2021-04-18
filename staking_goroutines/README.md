@@ -8,7 +8,7 @@ go tool trace trace.out
 
 Summary
 
-<img src="trace-goroutine-application-Run-func.png"/>
+<img src="trace-goroutine-application-Run-func.png" alt="goroutines report"/>
 
 All goroutines spend about 16 seconds. 
 
