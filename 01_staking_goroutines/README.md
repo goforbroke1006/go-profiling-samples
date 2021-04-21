@@ -1,14 +1,14 @@
 # staking goroutines
 
 ```bash
-cd staking_goroutines
+cd 01_staking_goroutines
 wget -O trace.out http://localhost:8080/debug/pprof/trace?seconds=60
 go tool trace trace.out
 ```
 
-Summary
+### Summary
 
-<img src="trace-goroutine-application-Run-func.png" alt="goroutines report"/>
+<img src="goroutine-analysis.png" alt="goroutines report"/>
 
 All goroutines spend about 16 seconds. 
 
