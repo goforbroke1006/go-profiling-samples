@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	"net/http"
 	"sort"
 	"time"
 )
@@ -52,4 +53,9 @@ func (t daemonizedTask) process() {
 
 	// fake job
 	time.Sleep(t.stuckPeriod)
+
+	const repeatNetworkUsage = 5
+	for i := 0; i < repeatNetworkUsage; i++ {
+		_, _ = http.Get("https://www.google.com/")
+	}
 }

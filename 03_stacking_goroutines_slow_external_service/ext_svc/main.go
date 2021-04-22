@@ -8,7 +8,7 @@ import (
 
 func main() {
 	http.HandleFunc("/slow-echo", func(rw http.ResponseWriter, req *http.Request) {
-		time.Sleep(250 * time.Millisecond)
+		time.Sleep(2500 * time.Millisecond)
 
 		fmt.Println("send answer")
 		rw.WriteHeader(http.StatusOK)
