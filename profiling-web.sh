@@ -65,13 +65,25 @@ sleep 2
 
 echo "go tool trace .profiling/${COMPONENT_NAME}/trace.out"
 
+# TOP to txt
+
 go tool pprof -top ".profiling/${COMPONENT_NAME}/profile.out" >".profiling/${COMPONENT_NAME}/profile.top.txt"
-go tool pprof -top ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.top.txt"
 
 go tool pprof -top -inuse_space ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.inuse_space.top.txt"
 go tool pprof -top -inuse_objects ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.inuse_objects.top.txt"
 go tool pprof -top -alloc_space ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.alloc_space.top.txt"
 go tool pprof -top -alloc_objects ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.alloc_objects.top.txt"
+
+go tool pprof -top -inuse_space ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.inuse_space.top.txt"
+go tool pprof -top -inuse_objects ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.inuse_objects.top.txt"
+go tool pprof -top -alloc_space ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.alloc_space.top.txt"
+go tool pprof -top -alloc_objects ".profiling/${COMPONENT_NAME}/heap.out" >".profiling/${COMPONENT_NAME}/heap.alloc_objects.top.txt"
+
+go tool pprof -top ".profiling/${COMPONENT_NAME}/allocs.out" >".profiling/${COMPONENT_NAME}/allocs.top.txt"
+
+go tool pprof -top ".profiling/${COMPONENT_NAME}/goroutine.out" >".profiling/${COMPONENT_NAME}/goroutine.top.txt"
+
+# PNG
 
 go tool pprof -png ".profiling/${COMPONENT_NAME}/profile.out" >".profiling/${COMPONENT_NAME}/profile.png"
 
