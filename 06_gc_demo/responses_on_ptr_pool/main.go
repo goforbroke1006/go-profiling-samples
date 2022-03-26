@@ -18,7 +18,7 @@ func main() {
 	port, _ := strconv.ParseInt(os.Args[1], 10, 64)
 	rand.Seed(time.Now().UnixNano())
 
-	intsPool := sync.Pool{
+	intsPool := &sync.Pool{
 		New: func() interface{} {
 			return new(int64)
 		},
@@ -28,7 +28,7 @@ func main() {
 	panic(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", port), nil))
 }
 
-func getNumbersHandle(ipool sync.Pool) func(w http.ResponseWriter, req *http.Request) {
+func getNumbersHandle(ipool *sync.Pool) func(w http.ResponseWriter, req *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
 		items := make([]*int64, 0, numberCount)
 		for i := 0; i < numberCount; i++ {
