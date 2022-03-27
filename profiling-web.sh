@@ -12,6 +12,8 @@
 
 # bash ./profiling.sh pricing-pricer-BO localhost:8080 60
 
+set -e
+
 if [[ $1 == "help" ]] || [[ $1 == "?" ]]; then
   echo "Usage:"
   echo "    bash ./$(basename "$0") pricing-pricer-BO localhost:8080 30"
@@ -33,12 +35,7 @@ if ! [[ $PROFILING_DURATION =~ $digits_re ]]; then
 fi
 
 mkdir -p ".profiling/${COMPONENT_NAME}/"
-
-rm -f ".profiling/${COMPONENT_NAME}/trace.out"
-rm -f ".profiling/${COMPONENT_NAME}/profile.out"
-rm -f ".profiling/${COMPONENT_NAME}/heap.out"
-rm -f ".profiling/${COMPONENT_NAME}/allocs.out"
-rm -f ".profiling/${COMPONENT_NAME}/goroutine.out"
+rm -f ".profiling/${COMPONENT_NAME}/*"
 
 curl --silent "http://${LISTENER_ADDR}/debug/pprof/trace?seconds=${PROFILING_DURATION}" >".profiling/${COMPONENT_NAME}/trace.out" &
 PID_TRACE=$!
@@ -52,18 +49,18 @@ curl --silent "http://${LISTENER_ADDR}/debug/pprof/goroutine?seconds=${PROFILING
 PID_GOROUTINE=$!
 
 # display how many time left
-while [[ $i -ne ${PROFILING_DURATION} ]]; do
-  i=$(($i + 1))
-  left=$((PROFILING_DURATION - i))
-  echo -ne "Wait ${left} seconds for all profiles readiness...    \r"
-  sleep 1
-done
-echo -ne "                                                                                                           \r"
+#while [[ $i -ne ${PROFILING_DURATION} ]]; do
+#  i=$(($i + 1))
+#  left=$((PROFILING_DURATION - i))
+#  echo -ne "Wait ${left} seconds for all profiles readiness...    \r"
+#  sleep 1
+#done
+#echo -ne "                                                                                                           \r"
 
 wait -n ${PID_TRACE} ${PID_PROFILE} ${PID_HEAP} ${PID_ALLOCS} ${PID_GOROUTINE}
-sleep 2
+sleep 10
 
-echo "go tool trace .profiling/${COMPONENT_NAME}/trace.out"
+#echo "go tool trace .profiling/${COMPONENT_NAME}/trace.out"
 
 # TOP to txt
 
@@ -96,8 +93,8 @@ go tool pprof -png ".profiling/${COMPONENT_NAME}/allocs.out" >".profiling/${COMP
 
 go tool pprof -png ".profiling/${COMPONENT_NAME}/goroutine.out" >".profiling/${COMPONENT_NAME}/goroutine.png"
 
-echo "See https://git.io/JfYMW for how to read the graph"
-echo "Finished!"
+#echo "See https://git.io/JfYMW for how to read the graph"
+#echo "Finished!"
 
 exit 0 # TODO: next steps are not ready to run
 
