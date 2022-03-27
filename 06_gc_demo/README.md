@@ -1,8 +1,16 @@
 # 06_gc_demo
 
+### How to run
+
 ```shell
 bash 06_gc_demo/run.sh
 ```
+
+And open next files to check request count proceed for each server implementation.
+
+* 06_gc_demo/responses_on_stack/hey.txt
+* 06_gc_demo/responses_on_heap/hey.txt
+* 06_gc_demo/responses_on_ptr_pool/hey.txt
 
 ### How to read GC debug outputs
 
