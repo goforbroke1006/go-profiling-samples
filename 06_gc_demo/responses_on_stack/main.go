@@ -45,10 +45,14 @@ func getNumbersHandle(w http.ResponseWriter, _ *http.Request) {
 		copy(item.Block6[:], block[:])
 		copy(item.Block7[:], block[:])
 		copy(item.Block8[:], block[:])
-		//copy(item.Block9[:], block[:])
-		//copy(item.Block10[:], block[:])
-		//copy(item.Block11[:], block[:])
-		//copy(item.Block12[:], block[:])
+		copy(item.Block9[:], block[:])
+		copy(item.Block10[:], block[:])
+		copy(item.Block11[:], block[:])
+		copy(item.Block12[:], block[:])
+		copy(item.Block13[:], block[:])
+		copy(item.Block14[:], block[:])
+		copy(item.Block15[:], block[:])
+		copy(item.Block16[:], block[:])
 
 		items = append(items, item)
 	}

@@ -1,6 +1,10 @@
 #!/bin/bash
 
 sudo apt update
+
+
+sudo apt-get install -y graphviz gv
+
 sudo apt install -y curl
 
 curl -L -O https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
