@@ -12,6 +12,31 @@ And open next files to check request count proceed for each server implementatio
 * 06_gc_demo/responses_on_heap/hey.txt
 * 06_gc_demo/responses_on_ptr_pool/hey.txt
 
+### Or run benchmark
+
+```shell
+go test ./... -bench="Benchmark_([\w]+)_getNumbersHandle" -benchmem -test.benchtime=20x -test.parallel=5 | grep "_getNumbersHandle-"
+go test ./... -bench="Benchmark_([\w]+)_getNumbersHandle" -benchmem -test.benchtime=5s -test.parallel=1000 | grep "_getNumbersHandle-"
+go test ./... -bench="Benchmark_([\w]+)_getNumbersHandle" -benchmem -test.benchtime=10s -test.parallel=10 | grep "_getNumbersHandle-"
+go test ./... -bench="Benchmark_([\w]+)_getNumbersHandle" -benchmem -test.benchtime=200x -test.parallel=50 | grep "_getNumbersHandle-"
+
+go test ./... -bench="Benchmark_values_getNumbersHandle" -benchmem -benchtime 2000x
+go test ./... -bench="Benchmark_pointers_getNumbersHandle" -benchmem -benchtime 2000x
+go test ./... -bench="Benchmark_pointers_pool_getNumbersHandle" -benchmem -benchtime 2000x
+```
+
+
+
+```shell
+go test ./... -bench="Benchmark_([\w]+)_getNumbersHandle" -benchmem -test.benchtime=10s -test.parallel=10 | grep "_getNumbersHandle-"
+```
+
+```txt
+Benchmark_pointers_getNumbersHandle-16             10000           1080030 ns/op         1735943 B/op       1027 allocs/op
+Benchmark_pointers_pool_getNumbersHandle-16         9740           1045711 ns/op         1620795 B/op        515 allocs/op
+Benchmark_values_getNumbersHandle-16                9664           1050404 ns/op         1773261 B/op        515 allocs/op
+```
+
 ### How to read GC debug outputs
 
 From https://www.ardanlabs.com/blog/2019/05/garbage-collection-in-go-part2-gctraces.html

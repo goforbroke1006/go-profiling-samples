@@ -22,8 +22,8 @@ func main() {
 }
 
 func getNumbersHandle(w http.ResponseWriter, _ *http.Request) {
-	block := [4096]byte{}
-	rand.Read(block[:])
+	block := make(common.BlockType, common.BlockSize)
+	rand.Read(block)
 
 	items := make([]common.HugeStructure, 0, common.SamplesCount)
 	for i := 0; i < common.SamplesCount; i++ {
@@ -37,22 +37,14 @@ func getNumbersHandle(w http.ResponseWriter, _ *http.Request) {
 			Height:      170,
 		}
 
-		copy(item.Block1[:], block[:])
-		copy(item.Block2[:], block[:])
-		copy(item.Block3[:], block[:])
-		copy(item.Block4[:], block[:])
-		copy(item.Block5[:], block[:])
-		copy(item.Block6[:], block[:])
-		copy(item.Block7[:], block[:])
-		copy(item.Block8[:], block[:])
-		copy(item.Block9[:], block[:])
-		copy(item.Block10[:], block[:])
-		copy(item.Block11[:], block[:])
-		copy(item.Block12[:], block[:])
-		copy(item.Block13[:], block[:])
-		copy(item.Block14[:], block[:])
-		copy(item.Block15[:], block[:])
-		copy(item.Block16[:], block[:])
+		copy(item.Block1, block)
+		copy(item.Block2, block)
+		copy(item.Block3, block)
+		copy(item.Block4, block)
+		copy(item.Block5, block)
+		copy(item.Block6, block)
+		copy(item.Block7, block)
+		copy(item.Block8, block)
 
 		items = append(items, item)
 	}
